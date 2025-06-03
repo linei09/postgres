@@ -10,11 +10,10 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "mychart.name" .}}-init-scripts
+  name: {{ include "mychart.name" . }}-init-scripts
   labels:
-    app: {{ include "mychart.name" .}}
+    app: {{ include "mychart.name" . }}
 data:
-  01-schema.sql: |
-    {{ .Files.Get "sql/01-schema.sql" | indent 4 }}    
-  02-data.sql: |
-    {{ .Files.Get "sql/02-data.sql" | indent 4 }}
+  01-schema.sql: {{ .Files.Get "sql/01-schema.sql" | quote }}
+  02-data.sql: {{ .Files.Get "sql/02-data.sql" | quote }}
+
