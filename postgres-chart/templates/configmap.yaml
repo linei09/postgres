@@ -15,6 +15,6 @@ metadata:
     app: {{ include "mychart.name" .}}
 data:
   01-schema.sql: |
-  {{ .File.Get "sql/01-schema.sql" | indent 4 }}    
+    {{ .Files.Get "sql/01-schema.sql" | indent 4 }}    
   02-data.sql: |
-  {{ .File.Get "sql/02-data.sql" | indent 4 }}
+    {{ .Files.Get "sql/02-data.sql" | indent 4 }}
