@@ -20,9 +20,9 @@ spec:
             - containerPort: 5432
           envFrom:
             - secretRef:
-                name: {{ .Values.secretName }}
+                name: postgres-secret
             - configMapRef:
-                name: {{ .Values.configMapName }}
+                name: postgres-config
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc.claimName }}
+            claimName: postgres-pvc
         - name: postgres-init-scripts
           configMap:
-            name: {{ .Values.initScriptsConfigMapName }}
+            name: postgres-init-scripts
