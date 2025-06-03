@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
+  name: {{ include "mychart.name" .}}-deployment
 spec: 
-  replicas: 1
+  replicas: {{ .Values.replicasCount}}
   selector:
     matchLabels:
-      app: postgres
+      app: {{ include "mychart.name" .}}
   template:
     metadata: 
       labels:
-        app: postgres
+        app: {{ include "mychart.name" .}}
     spec:
       containers: 
-        - name: postgres
-          image: postgres:17
+        - name: {{ .Values.image.repository}}
+          image: "{{ .Values.image.repository}}:{{ .Values.image.tag}}"
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5432
+            - containerPort: {{ .Values.service.port }}
           envFrom:
             - secretRef:
-                name: {{ .Values.secretName }}
+                name: {{ include "mychart.name" .}}-secret
             - configMapRef:
-                name: {{ .Values.configMapName }}
+                name: {{ include "mychart.name" .}}-config
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc.claimName }}
+            claimName: postgres-pvc
         - name: postgres-init-scripts
           configMap:
-            name: {{ .Values.initScriptsConfigMapName }}
+            name: postgres-init-scripts

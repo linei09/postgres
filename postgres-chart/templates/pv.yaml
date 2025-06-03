@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgres-pv-new
+  name: {{ include "mychart.name" .}}-pv
   annotations:
     argocd.argoproj.io/sync-options: Replace=true,Force=true
   labels:
-    app: postgres
+    app: {{include "mychart.name" .}}
     type: local
 spec:
   storageClassName: {{ .Values.pv.storageClassName }}  

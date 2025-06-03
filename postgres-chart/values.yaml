@@ -1,0 +1,40 @@
+
+replicasCount: 1
+
+image:
+  repository: postgres
+  tag: "17"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 5432
+  portName: postgresql
+  protocol: TCP
+  targetPort: 5432
+
+
+secretName: postgres-secret
+configMapName: postgres-config
+
+pvc:
+  claimName: postgres-pvc
+  storageClassName: standard
+  accessModes: ReadWriteOnce
+
+
+initScriptsConfigMapName: postgres-init-scripts
+
+secret:
+  POSTGRES_USER: dXNlcg==  #user
+  POSTGRES_PASSWORD: cGFzcw== #pass
+  POSTGRES_DB: cGV0Y2xpbmlj #petclinic
+
+pv:
+  storageClassName: standard
+  accessModes: ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath: /tmp/postgres-data
+  capacity: 10Gi
+
+postgres:
+  dbName: petclinic
