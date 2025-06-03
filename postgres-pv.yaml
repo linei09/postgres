@@ -8,11 +8,11 @@ metadata:
     app: postgres
     type: local
 spec:
-  storageClassName: {{ .Values.pv.storageClassName }}  
+  storageClassName: standard  
   capacity:
-    storage: {{ .Values.pv.capacity}}
+    storage: 10Gi
   accessModes:
-    - {{ .Values.pv.accessModes }}
-  persistentVolumeReclaimPolicy: {{ .Values.pv.persistentVolumeReclaimPolicy }}
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: {{ .Values.pv.hostPath }}
+    path: /tmp/postgres-data
