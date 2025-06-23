@@ -18,7 +18,7 @@ configMapName: postgres-config
 
 pvc:
   claimName: postgres-pvc
-  storageClassName: standard
+  storageClassName: longhorn
   accessModes: ReadWriteOnce
 
 
@@ -29,12 +29,7 @@ secret:
   POSTGRES_PASSWORD: cGFzcw== #pass
   POSTGRES_DB: cGV0Y2xpbmlj #petclinic
 
-pv:
-  storageClassName: standard
-  accessModes: ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  hostPath: /tmp/postgres-data
-  capacity: 10Gi
+
 
 postgres:
   dbName: petclinic
