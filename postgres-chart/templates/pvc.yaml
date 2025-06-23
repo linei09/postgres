@@ -10,4 +10,4 @@ spec:
     - {{ .Values.pvc.accessModes }}
   resources:
     requests:
-      storage: 10Gi
+      storage: {{ .Values.pvc.size | quote }}
