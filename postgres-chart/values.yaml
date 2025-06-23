@@ -20,6 +20,7 @@ pvc:
   claimName: postgres-pvc
   storageClassName: longhorn
   accessModes: ReadWriteOnce
+  size: 10Gi
 
 
 initScriptsConfigMapName: postgres-init-scripts
